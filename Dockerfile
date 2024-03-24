@@ -2,16 +2,16 @@ FROM --platform=linux/amd64 node:20-alpine AS deps
 RUN apk add --no-cache libc6-compat openssl
 WORKDIR /app
 COPY prisma ./
-COPY package.json pnpm-lock.yaml ./
-RUN yarn global add pnpm && pnpm i
+COPY package.json ./
+RUN npm i
 
 
 FROM --platform=linux/amd64 node:20-alpine AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-RUN yarn global add pnpm && pnpm run build
-RUN pnpm run db:push
+RUN npm run build
+RUN npm run db:push
 
 
 FROM --platform=linux/amd64 node:20-alpine AS runner
