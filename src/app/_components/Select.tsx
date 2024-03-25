@@ -8,7 +8,7 @@ interface ISelectProps {
     label: string
     options: string[]
     allowCustom?: boolean
-    required?: boolean 
+    required?: boolean
 }
 
 const activeOptionInit = (array: string[], value: string) => {
@@ -37,7 +37,9 @@ const Select = (props: ISelectProps) => {
     useOnClickOutside(targetRef, () => setIsOpen(false));
 
     const choseOption = (optionIndex: number) => {
-        props.setValue(props.options[optionIndex]!)
+        if (props.options.length > 0 || props.value.trim().length < 0) {
+            props.setValue(props.options[optionIndex]!)
+        }
         setIsOpen(false);
     }
 
@@ -79,7 +81,10 @@ const Select = (props: ISelectProps) => {
                 onKeyDown={handleKeyDown}
                 onFocus={() => setIsOpen(true)}
                 value={props.value}
-                onChange={(e) => props.setValue(e.currentTarget.value)}
+                onChange={(e) => {
+                    props.setValue(e.currentTarget.value)
+                    setIsOpen(true)
+                }}
                 readOnly={!props.allowCustom}
                 label={props.label}
                 required={props.required}
@@ -87,7 +92,7 @@ const Select = (props: ISelectProps) => {
 
             <datalist
                 ref={dropdownRef}
-                className={`${isOpen ? "block" : "none"} absolute w-full shadow-lg z-40 max-h-40 top-[100%] bg-white rounded-md p-2 overflow-y-scroll`}>
+                className={`${isOpen && (props.options.length > 0 || props.value.trim().length > 0) ? "block" : "none"} absolute w-full shadow-lg z-40 max-h-40 top-[100%] bg-white rounded-md p-2 overflow-y-scroll`}>
                 {props.options.map((option, index) => (
                     <option
                         key={option}
@@ -98,6 +103,15 @@ const Select = (props: ISelectProps) => {
                         {option}
                     </option>
                 ))}
+
+                {!(props.options.length < 1 && props.value.trim().length > 0) ? null : (
+                    <option
+                        className="bg-slate-200 font-extrabold flex flex-1 rounded-md text-gray-600 p-1 mb-1 text-base cursor-pointer"
+                        value={props.value}
+                        onClick={() => choseOption(0)}>
+                        Add {props.value}
+                    </option>
+                )}
             </datalist>
         </div>
     )

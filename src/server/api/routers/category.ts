@@ -3,7 +3,7 @@ import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
 
 export const categoryRouter = createTRPCRouter({ 
     getCategories: protectedProcedure
-    .input(z.string())
+    .input(z.string().optional())
     .query(({ ctx, input }) => { 
         return ctx.db.category.findMany({
             take: 5,

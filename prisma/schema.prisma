@@ -7,13 +7,14 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
+
 model Task {
     id          Int      @id @default(autoincrement())
     name        String
     completed   Boolean  @default(false)
     createdAt   DateTime @default(now())
     description String?
-    priority    String
+    priority    Int
     user        User     @relation(fields: [userId], references: [id])
     userId      String
     category    Category @relation(fields: [categoryId], references: [id])

@@ -2,8 +2,7 @@ import "~/styles/globals.css";
 
 import { Inter } from "next/font/google";
 import { TRPCReactProvider } from "~/trpc/react";
-import Header from "./_components/layout/header";
-import Footer from "./_components/layout/footer";
+import Header from "./_components/layout/Header";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -23,7 +22,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main className="flex min-h-screen flex-col items-center justify-center">
           <TRPCReactProvider>{children}</TRPCReactProvider>
         </main>
-        <Footer />
       </body>
     </html>
   );

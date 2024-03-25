@@ -6,20 +6,22 @@ interface TextFiledProps extends HTMLProps<HTMLInputElement> {
 }
 
 const TextFiled = forwardRef((props: TextFiledProps, ref: ForwardedRef<HTMLDivElement>) => {
+    const { label, value, onChange, required, onFocus, ...rest } = props;
+ 
     const Id = useId();
     const [isFocus, setIsFocus] = useState(false);
 
     const labelClassName = useMemo(() => {
-        if (props.value) return "sr-only"
+        if (value) return "sr-only"
         else return `absolute z-10 font-extralight transition-all ease-in-out 
         ${isFocus
-            ? "bottom-[100%] left-[2.4%] text-sm text-primary"
+            ? "bottom-[100%] left-[2.4%] text-sm text-black"
             : "text-base left-[4%] bottom-[20%] text-gray-700"
         }`
-    }, [props.value, isFocus])
+    }, [value, isFocus])
 
     const handelChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        props?.onChange && props.onChange(e)
+        onChange && onChange(e)
         setIsFocus(true)
     }
 
@@ -29,17 +31,19 @@ const TextFiled = forwardRef((props: TextFiledProps, ref: ForwardedRef<HTMLDivEl
                 <label
                     htmlFor={Id}
                     className={labelClassName}>
-                    {props.label}
-                    {props.required ? " *" : ""}
+                    {label}
+                    {required ? " *" : ""}
                 </label>
                 <input
-                    {...props}
-                    className="p-2 border h-fit rounded-sm w-full focus:border-none focus:outline-solid focus:outline-2 border-gray-700 hover:border-gray-900 focus:outline-primary"
+                    {...rest}
+                    className="p-2 border h-fit rounded-sm w-full focus:border-none focus:outline-solid focus:outline-2 border-gray-700 hover:border-black focus:outline-black"
                     id={Id}
                     onFocus={(e) => {
-                        props?.onFocus && props.onFocus(e);
+                        onFocus && onFocus(e);
                         setIsFocus(true) 
                     }}
+                    required={required}
+                    value={value}
                     onBlur={() => setIsFocus(false)}
                     onChange={handelChange}
                 />
