@@ -78,14 +78,14 @@ function SelectButton(props: ISelectButtonProps) {
 
             <datalist
             ref={dropdownRef}
-                className={`${isOpen ? "block" : "none"} absolute w-auto shadow-lg z-40 h-auto max-h-40 right-0 top-[100%] bg-white rounded-md p-2 overflow-y-scroll`}
+                className={`${isOpen ? "block" : "none"} absolute w-full shadow-lg z-40 h-auto max-h-40 right-0 top-[100%] bg-white rounded-md p-2 overflow-y-scroll`}
             >
                 {props.options.map((option, index) => (
                     <option
                         id={`${id}-option-${index}`}
                         key={option}
                         onClick={() => choseOption(index)}
-                        className={`${activeOption === index ? "bg-slate-200 font-extrabold" : "bg-white"} block rounded-md text-gray-600 p-1 mb-1 text-base cursor-pointer`}
+                        className={`${activeOption === index ? "bg-slate-200 font-bold" : "bg-white"} flex text-wrap rounded-md text-gray-600 p-0.5 mb-1 text-sm cursor-pointer`}
                         value={option}>
                         {option}
                     </option>

@@ -6,6 +6,7 @@ import Link from 'next/link';
 import CircleProgress from '../_components/CircleProgress';
 import { getPriority, priorityColor, priorityOptions } from '~/app/utils/priority';
 import SelectButton from '../_components/SelectButton';
+import Button from '../_components/Button';
 
 const Tasks = () => {
   const [category, setCategory] = useState("--all--")
@@ -30,6 +31,14 @@ const Tasks = () => {
               </div>
 
               {tasks.data.map((task) => <Task task={task} key={task.id} />)}
+              {tasks.data.length > 0 ? null : (
+                <div className='flex flex-col justify-center items-center mt-40 gap-8'>
+                  <h1 className='text-3xl'>No Task Found</h1>
+                    <Link href="/tasks/create">
+                      <Button buttonSize='lg'>Create Task</Button>
+                    </Link>
+                </div>
+              )}
             </div>
           )}
     </div>

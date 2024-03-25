@@ -6,12 +6,9 @@ export const categoryRouter = createTRPCRouter({
     .input(z.string().optional())
     .query(({ ctx, input }) => { 
         return ctx.db.category.findMany({
-            take: 5,
             where: { 
                 userId: ctx.session.user.id,
-                name: {
-                    contains: input
-                }
+                name: { contains: input }
             },
             select: { name: true }
           });
