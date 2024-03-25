@@ -40,7 +40,7 @@ const Form = () => {
         <TextFiled value={name} onChange={(e) => setName(e.currentTarget.value)} label="Title" required />
         <Select value={category} setValue={setCategory} label="Category" options={categories.data ? categories.data.map((item) => item.name) : []} allowCustom required />
         <Select value={priority} setValue={setPriority} label="Priority" options={priorityOptions} required />
-        <TextArea value={description} label="Description" onChange={(e) => setDescription(e.target.value)} />
+        <TextArea value={description} label="Description" onChange={(e) => setDescription(e.currentTarget.value)} />
   
         <Button isLoading={createTask.isPending} type="submit">Submit</Button>
       </form>
